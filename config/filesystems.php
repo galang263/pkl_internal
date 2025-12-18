@@ -32,7 +32,7 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app/private'),
+            'root' => storage_path('app'),
             'serve' => true,
             'throw' => false,
             'report' => false,
@@ -76,5 +76,8 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
+
+    // config/filesystems.php
+
 
 ];
