@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CartController;
@@ -13,7 +14,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 Route::get('/', function(){
     return view('welcome');
@@ -125,13 +125,10 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// ================================================
-// HALAMAN ADMIN (Butuh Login + Role Admin)
-// ================================================
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'Dashboard'])->name('dashboard');
 
     // Produk CRUD
     Route::resource('products', AdminProductController::class);
@@ -144,9 +141,19 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
 });
-
-
-// ================================================
-// AUTH ROUTES (dari Laravel UI)
-// ================================================
 Auth::routes();
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/products', [CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/products/{slug}', [CatalogController::class, 'show'])->name('catalog.show');
+Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::patch('/cart/{item}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/{item}', [CartController::class, 'remove'])->name('cart.remove');
+});
+// Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+//     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+//     Route::resource('products', AdminProductController::class);
+// });
+// Auth::routes();
