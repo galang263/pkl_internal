@@ -1,8 +1,6 @@
 {{-- resources/views/admin/products/create.blade.php --}}
 @extends('layouts.admin')
-
 @section('title', 'Tambah Produk')
-
 @section('content')
 <div class="row justify-content-center">
     <div class="col-lg-12">

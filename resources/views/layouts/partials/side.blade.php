@@ -16,6 +16,12 @@
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Home</span>
             </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{{ route('dashboard.admin') }}" aria-expanded="false">
+                <i class="ti ti-atom"></i>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
            <li class="sidebar-item">
               <a class="sidebar-link" href="categories" aria-expanded="false">
                 <i class="ti ti-atom"></i>
@@ -23,12 +29,11 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="products" aria-expanded="false">
+              <a class="sidebar-link" href="{{ route('admin.products.index') }}" aria-expanded="false">
                 <i class="ti ti-atom"></i>
-                <span class="hide-menu">Products</span>
+                <span class="hide-menu">products</span>
               </a>
             </li>
-
           </ul>
           <div class="unlimited-access hide-menu bg-light-secondary position-relative mb-7 mt-5 rounded">
             <div class="d-flex">

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
 
 Route::get('/', function(){
     return view('welcome');
@@ -155,3 +156,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/{item}', [CartController::class, 'remove'])->name('cart.remove');
 });
 
+route::get('dashboard', function(){
+    return view('layouts.partials.content');
+})->name('dashboard.admin');

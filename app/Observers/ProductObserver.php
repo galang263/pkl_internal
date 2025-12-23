@@ -5,6 +5,7 @@ namespace App\Observers;
 
 use App\Models\Product;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class ProductObserver
 {
@@ -18,11 +19,14 @@ class ProductObserver
         Cache::forget('category_' . $product->category_id . '_products');
 
         // Log activity
-        activity()
-            ->performedOn($product)
-            ->causedBy(auth()->user())
-            ->log('Produk baru dibuat: ' . $product->name);
+       if (auth()->check()) {
+        Log::info('product baru di buat',[
+            'product_id' => $product->id,
+            'name' => $product->name,
+            'user_id' => auth()->id(),
+        ]);
     }
+}
 
     /**
      * Handle the Product "updated" event.
