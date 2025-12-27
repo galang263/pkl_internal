@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use App\middleware\AdminMiddleware;
 
+
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...
