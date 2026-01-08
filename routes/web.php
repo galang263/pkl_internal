@@ -11,6 +11,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MidtransNotificationController;
 
 // Admin Controllers
@@ -119,3 +120,20 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 */
 
 Route::post('midtrans/notification', [MidtransNotificationController::class, 'handle'])->name('midtrans.notification');
+
+
+use Illuminate\Support\Facades\Mail;
+
+Route::get('/test-mailtrap', function () {
+    Mail::raw('Ini adalah email test dari Laravel + Mailtrap', function ($message) {
+        $message->to('test@example.com')
+                ->subject('Test Email Mailtrap');
+    });
+
+    return 'Email berhasil dikirim ke Mailtrap!';
+});
+
+Route::get('/product/{slug}', [ProductController::class, 'show'])->name('products.show');
+
+
+
